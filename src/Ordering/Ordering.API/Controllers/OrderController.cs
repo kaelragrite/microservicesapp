@@ -16,12 +16,13 @@ namespace Ordering.API.Controllers
 
         public OrderController(IMediator mediator) => _mediator = mediator;
 
+
+        // TESTING PURPOSE
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<OrderResponse>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<OrderResponse>>> GetOrdersByUsername(string username) => Ok(await _mediator.Send(new GetOrderByUsernameQuery(username)));
 
 
-        // TESTING PURPOSE
         [HttpPost]
         [ProducesResponseType(typeof(OrderResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<OrderResponse>> CheckoutOrder([FromBody] CheckoutOrderCommand command) => await _mediator.Send(command);
