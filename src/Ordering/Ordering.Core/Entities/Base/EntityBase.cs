@@ -1,4 +1,5 @@
-﻿namespace Ordering.Core.Entities.Base
+﻿#nullable enable
+namespace Ordering.Core.Entities.Base
 {
     public abstract class EntityBase<TId> : IEntityBase<TId>
     {
