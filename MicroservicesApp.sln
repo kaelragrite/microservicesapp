@@ -37,6 +37,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{198844
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspnetRunBasics", "src\WebApp\AspnetRunBasics\AspnetRunBasics.csproj", "{03B354AF-572F-425C-842A-70A3434E68AF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Envoy", "Envoy", "{164BB408-8275-4046-AD7D-938E752C9ECA}"
+ProjectSection(SolutionItems) = preProject
+	src\Envoy\Dockerfile = src\Envoy\Dockerfile
+	src\Envoy\envoy.yaml = src\Envoy\envoy.yaml
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +109,7 @@ Global
 		{5683DE75-B40F-4BDB-ADC8-F2BBFB285182} = {1F9C2083-BD8C-46A1-9C3F-004F126FAD7F}
 		{1988449F-D430-4558-8C5E-7335CF0A1F57} = {91894018-CD2E-4882-8676-A8FD07437675}
 		{03B354AF-572F-425C-842A-70A3434E68AF} = {1988449F-D430-4558-8C5E-7335CF0A1F57}
+		{164BB408-8275-4046-AD7D-938E752C9ECA} = {91894018-CD2E-4882-8676-A8FD07437675}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC2BC742-6A4B-4F92-81FA-383AEA30B866}

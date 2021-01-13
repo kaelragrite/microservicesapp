@@ -30,6 +30,18 @@ services:
       - "5672:5672"
       - "15672:15672"
 
+  envoygateway:
+    container_name: envoygateway
+    depends_on:
+      - catalog.api
+      - basket.api
+      - ordering.api
+    volumes:
+    - /src/Envoy/envoy.yaml:/root/etc/envoy/envoy.yaml
+    ports:
+    - "9901:9901"
+    - "10000:10000"
+
   catalog.api:
     container_name: catalogapi
     environment:
@@ -88,6 +100,7 @@ services:
     ports:
       - "7000:80"
         
+
   aspnetrunbasics:
     container_name: aspnetrunbasics
     environment:
