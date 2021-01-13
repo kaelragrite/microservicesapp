@@ -18,11 +18,6 @@ services:
     build: 
       context: .
       dockerfile: src/Envoy/Dockerfile
-#    ports:
-#      - "9901:9901"
-#      - "10000:10000"
-#    volumes:
-#    - "./Envoy/envoy.yml"
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi

@@ -32,6 +32,7 @@ services:
 
   envoygateway:
     container_name: envoygateway
+    restart: always
     depends_on:
       - catalog.api
       - basket.api

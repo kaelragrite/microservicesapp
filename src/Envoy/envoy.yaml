@@ -6,7 +6,7 @@
       port_value: 9901
 static_resources:
   listeners:
-    - name: listener_0
+    - name: listener_microservicesapp
       address:
         socket_address:
           address: 0.0.0.0
@@ -31,27 +31,39 @@ static_resources:
                       domains: ["*"]
                       routes:
                         - match:
-                            prefix: "/"
+                            prefix: "/c"
                           route:
-                            host_rewrite_literal: www.envoyproxy.io
-                            cluster: service_envoyproxy_io
+                            prefix_rewrite: "/api/v1/Catalog"
+                            cluster: service_catalog
+                        - match:
+                            prefix: "/b"
+                          route:
+                            prefix_rewrite: "/api/v1/Basket"
+                            cluster: service_basket
   clusters:
-    - name: service_envoyproxy_io
-      connect_timeout: 30s
+    - name: service_catalog
+      connect_timeout: 10s
       type: LOGICAL_DNS
-      # Comment out the following line to test on v6 networks
       dns_lookup_family: V4_ONLY
       load_assignment:
-        cluster_name: service_envoyproxy_io
+        cluster_name: service_catalog
         endpoints:
           - lb_endpoints:
               - endpoint:
                   address:
                     socket_address:
-                      address: www.envoyproxy.io
-                      port_value: 443
-      transport_socket:
-        name: envoy.transport_sockets.tls
-        typed_config:
-          "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
-          sni: www.envoyproxy.io
+                      address: catalog.api
+                      port_value: 80
+    - name: service_basket
+      connect_timeout: 10s
+      type: LOGICAL_DNS
+      dns_lookup_family: V4_ONLY
+      load_assignment:
+        cluster_name: service_basket
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: basket.api
+                      port_value: 80
