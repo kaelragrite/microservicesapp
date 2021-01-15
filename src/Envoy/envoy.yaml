@@ -28,18 +28,33 @@ static_resources:
                   name: local_route
                   virtual_hosts:
                     - name: local_service
-                      domains: ["*"]
+                      domains: [ "*" ]
                       routes:
                         - match:
-                            prefix: "/c"
+                            prefix: "/Catalog"
                           route:
-                            prefix_rewrite: "/api/v1/Catalog"
+#                            regex_rewrite: "/"
                             cluster: service_catalog
                         - match:
-                            prefix: "/b"
+                            prefix: "/Basket"
                           route:
-                            prefix_rewrite: "/api/v1/Basket"
+#                            regex_rewrite: "/"
                             cluster: service_basket
+                        - match:
+                            prefix: "/Order"
+                          route:
+#                            regex_rewrite: "/"
+                            cluster: service_order
+#                        - match:
+#                            regex: "\/c(.*)"
+#                          route:
+#                            regex_rewrite: "\/api\/v1\/Catalog/\\1"
+#                            cluster: service_catalog
+#                        - match:
+#                            prefix: "\/b(.*)"
+#                          route:
+#                            regex_rewrite: "\/api\/v1\/Basket/\\1"
+#                            cluster: service_basket
   clusters:
     - name: service_catalog
       connect_timeout: 10s
@@ -66,4 +81,17 @@ static_resources:
                   address:
                     socket_address:
                       address: basket.api
+                      port_value: 80
+    - name: service_order
+      connect_timeout: 10s
+      type: LOGICAL_DNS
+      dns_lookup_family: V4_ONLY
+      load_assignment:
+        cluster_name: service_order
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: order.api
                       port_value: 80
